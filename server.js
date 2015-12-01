@@ -8,7 +8,12 @@ var socketio = require('socket.io');
 server.on('request', app);
 var io = socketio(server);
 
+var events = [];
 io.on('connection', function (socket) {
+	console.log(events)
+    for(var i=0; i<events.length; i++){
+    	socket.emit("otherUser", events[i])
+    }
     // This function receives the newly connected socket.
     // This function will be called for EACH browser that connects to our server.
     console.log('A new client has connected!');
@@ -17,6 +22,7 @@ io.on('connection', function (socket) {
 
     socket.on('drawEvent', function(event){
       console.log('drawEvent');
+      events.push(event);
       socket.broadcast.emit('otherUser', event);
     })
 
