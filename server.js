@@ -21,7 +21,6 @@ io.on('connection', function (socket) {
 
 
     socket.on('drawEvent', function(event){
-      console.log('drawEvent');
       events.push(event);
       socket.broadcast.emit('otherUser', event);
     })
